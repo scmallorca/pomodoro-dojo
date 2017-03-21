@@ -5,20 +5,20 @@ Pomodoro Dojo
 El objetivo de esta kata es desarrollar mediante TDD, un programa que reproduzca el comportamiento de un temporizador que utiliza la técnica pomodoro, es decir, "un simple reloj de cocina".
 
 Os proponemos los siguientes comportamientos:
-1. Crear un pomodoro
+1. __Crear un pomodoro__
   * Un pomodoro dura 25 minutos por defecto.
   * Puedo crear un pomodoro con cualquier duración.
-2. Parar un pomodoro
+2. __Parar un pomodoro__
   * Un pomodoro recién creado está parado.
   * Al arrancar un pomodoro comienza la cuenta atrás.
   * Un pomodoro no termina si no ha sido arrancado previamente.
   * Un pomodoro acaba cuando se agota su tiempo.
   * Un pomodoro no acaba mientras no se agote su tiempo.
-3. Interrupciones
+3. __Interrupciones__
   * Un pomodoro se inicia sin interrupciones.
   * Si no está arrancado no se puede interrumpir.
   * El pomodoro cuenta las interrupciones (1, 2...).
-4. Reiniciar
+4. __Reiniciar__
   * Un pomodoro ya arrancado se reinicia (empieza a contar el tiempo) al arrancarlo de nuevo.
   * Un pomodoro se reinicia sin interrupciones.
 
@@ -28,20 +28,20 @@ Como "bonus track" se propone crear la UI, que puede ser gráfica, linea de coma
 The objective of this kata is to develop through TDD, a program that reproduces the behavior of a pomodoro timer, ie a simple kitchen clock.
 
 We propose you with the following behaviors:
-1. Start a pomodoro
+1. __Start a pomodoro__
   * A pomodoro lasts for 25 minutes by default.
   * I can create a pomodoro with any duration.
-2. Stop a pomodoro
+2. __Stop a pomodoro__
   * A newly created pomodoro stands.
   * When starting a pomodoro begins the countdown.
   * A pomodoro does not end if it has not been started previously.
   * A pomodoro ends when its runs out.
   * A pomodoro not end until it runs out time.
-3. Interruptions
+3. __Interruptions__
   * A pomodoro starts without interruptions.
   * If it is not started it can not be interrupted.
   * The pomodoro counts the interruptions (1, 2 ...).
-4. Restart
+4. __Restart__
   * An already started pomodoro is restarted (begins to count the time) when starting it again.
   * A pomodoro restarts without interruptions.
 
