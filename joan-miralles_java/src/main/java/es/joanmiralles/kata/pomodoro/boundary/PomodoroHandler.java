@@ -17,6 +17,8 @@ public class PomodoroHandler {
 
     public void start() {
         this.pomodoro.setStatus(Pomodoro.Status.STARTED);
+        this.pomodoro.setLeftDurationInSeconds(this.pomodoro.getDurationInSeconds());
+        this.pomodoro.setInterruptions(0);
         this.timer = new Timer();
         this.timer.scheduleAtFixedRate(countdownTask(this.pomodoro), 0, 1000);
     }
@@ -26,7 +28,6 @@ public class PomodoroHandler {
             @Override
             public void run() {
                 if (pomodoroIn.getLeftDurationInSeconds() == 1) {
-                    timer.cancel();
                     ends();
                 }
                 pomodoroIn.setLeftDurationInSeconds(pomodoroIn.getLeftDurationInSeconds() - 1);
@@ -35,8 +36,8 @@ public class PomodoroHandler {
     }
 
     private void ends() {
+        this.timer.cancel();
         this.pomodoro.setStatus(Pomodoro.Status.STOPPED);
-        this.pomodoro.setLeftDurationInSeconds(this.pomodoro.getDurationInSeconds());
     }
 
     public void stop() throws Exception {

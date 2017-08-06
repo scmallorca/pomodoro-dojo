@@ -55,4 +55,14 @@ public class Pomodoro {
     public enum Status {
         STARTED, STOPPED
     }
+
+    @Override
+    public String toString() {
+        return "Pomodoro{" +
+                "durationInSeconds=" + durationInSeconds +
+                ", status=" + status +
+                ", leftDurationInSeconds=" + leftDurationInSeconds +
+                ", interruptions=" + interruptions +
+                '}';
+    }
 }

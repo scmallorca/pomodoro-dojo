@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.lessThan;
 import static org.hamcrest.Matchers.is;
 
@@ -63,9 +64,24 @@ public class PomodoroHandlerTest {
     public void give_created_pomodoro_counts_interruptions() throws Exception {
         this.handler.start();
         this.handler.interrupt();
-        assertThat(this.pomodoro.getInterruptions(), is(1));
         this.handler.interrupt();
         this.handler.interrupt();
         assertThat(this.pomodoro.getInterruptions(), is(3));
+    }
+
+    @Test
+    public void give_started_pomodoro_when_start_it_again_then_it_is_restarted() throws InterruptedException {
+        this.handler.start();
+        Thread.sleep(1000);
+        this.handler.start();
+        assertThat(this.pomodoro.getLeftDurationInSeconds(), is(Pomodoro.DEFAULT_POMODORO_DURATION_IN_SECONDS));
+    }
+
+    @Test
+    public void give_started_pomodoro_when_it_is_restarted_then_it_has_no_interruptions() throws Exception {
+        this.handler.start();
+        this.handler.interrupt();
+        this.handler.start();
+        assertThat(this.pomodoro.getInterruptions(), is(0));
     }
 }
