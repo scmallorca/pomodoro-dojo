@@ -8,42 +8,49 @@ import java.util.TimerTask;
 
 public class PomodoroHandler {
 
+    private final Pomodoro pomodoro;
     private Timer timer;
 
-    public void start(Pomodoro pomodoro) {
-        pomodoro.setStatus(Pomodoro.Status.STARTED);
-        this.timer = new Timer();
-        this.timer.scheduleAtFixedRate(countdownTask(pomodoro), 0, 1000);
+    public PomodoroHandler(Pomodoro pomodoro) {
+        this.pomodoro = pomodoro;
     }
 
-    private TimerTask countdownTask(Pomodoro pomodoro) {
+    public void start() {
+        this.pomodoro.setStatus(Pomodoro.Status.STARTED);
+        this.timer = new Timer();
+        this.timer.scheduleAtFixedRate(countdownTask(this.pomodoro), 0, 1000);
+    }
+
+    private TimerTask countdownTask(Pomodoro pomodoroIn) {
         return new TimerTask() {
             @Override
             public void run() {
-                if (pomodoro.getLeftDurationInSeconds() == 1) {
+                if (pomodoroIn.getLeftDurationInSeconds() == 1) {
                     timer.cancel();
-                    ends(pomodoro);
+                    ends();
                 }
-                pomodoro.setLeftDurationInSeconds(pomodoro.getLeftDurationInSeconds() - 1);
+                pomodoroIn.setLeftDurationInSeconds(pomodoroIn.getLeftDurationInSeconds() - 1);
             }
         };
     }
 
-    private void ends(Pomodoro pomodoro) {
-        pomodoro.setStatus(Pomodoro.Status.STOPPED);
-        pomodoro.setLeftDurationInSeconds(pomodoro.getDurationInSeconds());
+    private void ends() {
+        this.pomodoro.setStatus(Pomodoro.Status.STOPPED);
+        this.pomodoro.setLeftDurationInSeconds(this.pomodoro.getDurationInSeconds());
     }
 
-    public void stop(Pomodoro pomodoro) throws Exception {
-        if (pomodoro.getStatus() == Pomodoro.Status.STOPPED) {
-            throw new Exception("Pomodoro has not been started previously");
+    public void stop() throws Exception {
+        if (this.pomodoro.getStatus() == Pomodoro.Status.STOPPED) {
+            throw new Exception("Pomodoro cannot stop because it has not been started previously");
         }
-        stop();
+        throw new NotImplementedException();
     }
 
-
-    private void stop() {
-        throw new NotImplementedException();
+    public void interrupt() throws Exception {
+        if (this.pomodoro.getStatus() == Pomodoro.Status.STOPPED) {
+            throw new Exception("Pomodoro cannot interrupt because it has not been started previously");
+        }
+        this.pomodoro.setInterruptions(this.pomodoro.getInterruptions() + 1);
     }
 
 }

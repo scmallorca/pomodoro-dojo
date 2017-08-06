@@ -2,11 +2,12 @@ package es.joanmiralles.kata.pomodoro.entity;
 
 public class Pomodoro {
 
-    public static final int DEFAULT_POMODORO_DURATION_IN_SECONDS = 25*60;
+    public static final int DEFAULT_POMODORO_DURATION_IN_SECONDS = 25 * 60;
 
     private int durationInSeconds;
     private Pomodoro.Status status;
     private int leftDurationInSeconds;
+    private int interruptions;
 
     public Pomodoro() {
         this(DEFAULT_POMODORO_DURATION_IN_SECONDS);
@@ -16,6 +17,7 @@ public class Pomodoro {
         this.durationInSeconds = durationInSeconds;
         this.leftDurationInSeconds = durationInSeconds;
         this.status = Pomodoro.Status.STOPPED;
+        this.interruptions = 0;
     }
 
     public int getDurationInSeconds() {
@@ -40,6 +42,14 @@ public class Pomodoro {
 
     public void setLeftDurationInSeconds(int leftDurationInSeconds) {
         this.leftDurationInSeconds = leftDurationInSeconds;
+    }
+
+    public int getInterruptions() {
+        return interruptions;
+    }
+
+    public void setInterruptions(int interruptions) {
+        this.interruptions = interruptions;
     }
 
     public enum Status {

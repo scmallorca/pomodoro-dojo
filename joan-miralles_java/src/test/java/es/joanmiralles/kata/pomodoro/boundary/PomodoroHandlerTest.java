@@ -16,25 +16,26 @@ public class PomodoroHandlerTest {
     @Before
     public void setUp() {
         this.pomodoro = new Pomodoro();
-        this.handler = new PomodoroHandler();
+        this.handler = new PomodoroHandler(this.pomodoro);
     }
 
     @Test
     public void when_pomodoro_starts_should_countdown_starts() throws InterruptedException {
-        this.handler.start(this.pomodoro);
+        this.handler.start();
         Thread.sleep(1000);
         assertThat(this.pomodoro.getLeftDurationInSeconds(), lessThan(Pomodoro.DEFAULT_POMODORO_DURATION_IN_SECONDS));
     }
 
     @Test(expected = Exception.class)
     public void pomodoro_cant_stop_if_not_started_before() throws Exception {
-        this.handler.stop(this.pomodoro);
+        this.handler.stop();
     }
 
     @Test
     public void give_one_second_pomodoro_when_it_runs_out_then_it_finishes() throws InterruptedException {
         this.pomodoro = new Pomodoro(1);
-        this.handler.start(this.pomodoro);
+        this.handler = new PomodoroHandler(this.pomodoro);
+        this.handler.start();
         Thread.sleep(1000);
         assertThat(this.pomodoro.getStatus(), is(Pomodoro.Status.STOPPED));
         assertThat(this.pomodoro.getLeftDurationInSeconds(), is(0));
@@ -43,7 +44,28 @@ public class PomodoroHandlerTest {
     @Test
     public void give_one_second_pomodoro_if_time_do_not_exhausted_pomodoro_does_not_end() throws InterruptedException {
         this.pomodoro = new Pomodoro(1);
-        this.handler.start(this.pomodoro);
+        this.handler = new PomodoroHandler(this.pomodoro);
+        this.handler.start();
         assertThat(this.pomodoro.getStatus(), is(Pomodoro.Status.STARTED));
+    }
+
+    @Test
+    public void give_created_pomodoro_then_it_has_no_interruptions() {
+        assertThat(this.pomodoro.getInterruptions(), is(0));
+    }
+
+    @Test(expected = Exception.class)
+    public void give_created_pomodoro_when_cannot_started_then_cannot_be_interrupted() throws Exception {
+        this.handler.interrupt();
+    }
+
+    @Test
+    public void give_created_pomodoro_counts_interruptions() throws Exception {
+        this.handler.start();
+        this.handler.interrupt();
+        assertThat(this.pomodoro.getInterruptions(), is(1));
+        this.handler.interrupt();
+        this.handler.interrupt();
+        assertThat(this.pomodoro.getInterruptions(), is(3));
     }
 }
