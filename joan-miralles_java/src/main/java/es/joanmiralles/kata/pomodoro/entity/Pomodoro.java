@@ -10,6 +10,7 @@ public class Pomodoro {
     private int durationInSeconds = DEFAULT_POMODORO_DURATION_IN_SECONDS;
     private PomodoroStatus status = PomodoroStatus.STOPPED;
     private int leftDurationInSeconds = DEFAULT_POMODORO_DURATION_IN_SECONDS;
+    private Timer timer;
 
     public int getDurationInSeconds() {
         return durationInSeconds;
@@ -33,8 +34,12 @@ public class Pomodoro {
 
     public void start() {
         status = PomodoroStatus.STARTED;
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
+        this.timer = new Timer();
+        this.timer.scheduleAtFixedRate(countdownTask(), 0, 1000);
+    }
+
+    private TimerTask countdownTask() {
+        return new TimerTask() {
             @Override
             public void run() {
                 if (leftDurationInSeconds == 1) {
@@ -43,6 +48,6 @@ public class Pomodoro {
                 }
                 leftDurationInSeconds--;
             }
-        }, 0, 1000);
+        };
     }
 }
