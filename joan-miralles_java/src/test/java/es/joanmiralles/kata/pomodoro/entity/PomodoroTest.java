@@ -7,17 +7,19 @@ import static org.junit.Assert.assertThat;
 
 public class PomodoroTest {
 
+    public static final int THIRTY_MIN_DURATION_IN_SECONDS = 30 * 60;
+
     @Test
     public void test_create_default_pomodoro() {
         Pomodoro pomodoro = new Pomodoro();
-        assertThat(pomodoro.getDuration(), is(25));
+        assertThat(pomodoro.getDurationInSeconds(), is(Pomodoro.DEFAULT_POMODORO_DURATION_IN_SECONDS));
     }
 
     @Test
     public void test_create_pomodoro_with_any_duration() {
         Pomodoro pomodoro = new Pomodoro();
-        pomodoro.setDuration(30);
-        assertThat(pomodoro.getDuration(), is(30));
+        pomodoro.setDurationInSeconds(THIRTY_MIN_DURATION_IN_SECONDS);
+        assertThat(pomodoro.getDurationInSeconds(), is(THIRTY_MIN_DURATION_IN_SECONDS));
     }
 
     @Test
@@ -25,4 +27,5 @@ public class PomodoroTest {
         Pomodoro pomodoro = new Pomodoro();
         assertThat(pomodoro.getStatus(), is(PomodoroStatus.STOPPED));
     }
+
 }
