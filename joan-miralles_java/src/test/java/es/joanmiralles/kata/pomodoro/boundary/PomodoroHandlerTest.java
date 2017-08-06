@@ -1,10 +1,12 @@
 package es.joanmiralles.kata.pomodoro.boundary;
 
 import es.joanmiralles.kata.pomodoro.entity.Pomodoro;
+import es.joanmiralles.kata.pomodoro.entity.PomodoroStatus;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.lessThan;
+import static org.hamcrest.Matchers.is;
 
 public class PomodoroHandlerTest {
 
@@ -22,5 +24,14 @@ public class PomodoroHandlerTest {
         Pomodoro pomodoro = new Pomodoro();
         PomodoroHandler handler = new PomodoroHandler();
         handler.stop(pomodoro);
+    }
+
+    @Test
+    public void pomodoro_finishes_when_it_runs_out() throws InterruptedException {
+        Pomodoro pomodoro = new Pomodoro(1);
+        PomodoroHandler handler = new PomodoroHandler();
+        handler.start(pomodoro);
+        Thread.sleep(1000);
+        assertThat(pomodoro.getStatus(), is(PomodoroStatus.STOPPED));
     }
 }

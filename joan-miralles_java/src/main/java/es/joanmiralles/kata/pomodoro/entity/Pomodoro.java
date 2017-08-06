@@ -9,10 +9,20 @@ public class Pomodoro {
 
     public static final int DEFAULT_POMODORO_DURATION_IN_SECONDS = 25*60;
 
-    private int durationInSeconds = DEFAULT_POMODORO_DURATION_IN_SECONDS;
-    private PomodoroStatus status = PomodoroStatus.STOPPED;
-    private int leftDurationInSeconds = DEFAULT_POMODORO_DURATION_IN_SECONDS;
+    private int durationInSeconds;
+    private PomodoroStatus status;
+    private int leftDurationInSeconds;
     private Timer timer;
+
+    public Pomodoro() {
+        this(DEFAULT_POMODORO_DURATION_IN_SECONDS);
+    }
+
+    public Pomodoro(int durationInSeconds) {
+        this.durationInSeconds = durationInSeconds;
+        this.leftDurationInSeconds = durationInSeconds;
+        this.status = PomodoroStatus.STOPPED;
+    }
 
     public int getDurationInSeconds() {
         return durationInSeconds;
