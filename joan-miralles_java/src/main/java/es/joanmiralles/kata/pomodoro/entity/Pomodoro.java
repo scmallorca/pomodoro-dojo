@@ -1,5 +1,7 @@
 package es.joanmiralles.kata.pomodoro.entity;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -49,5 +51,9 @@ public class Pomodoro {
                 leftDurationInSeconds--;
             }
         };
+    }
+
+    public void stop() {
+        throw new NotImplementedException();
     }
 }
