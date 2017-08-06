@@ -25,7 +25,7 @@ public class PomodoroTest {
     @Test
     public void test_just_created_pomodoro_should_be_stopped() {
         Pomodoro pomodoro = new Pomodoro();
-        assertThat(pomodoro.getStatus(), is(PomodoroStatus.STOPPED));
+        assertThat(pomodoro.getStatus(), is(Pomodoro.Status.STOPPED));
     }
 
 }

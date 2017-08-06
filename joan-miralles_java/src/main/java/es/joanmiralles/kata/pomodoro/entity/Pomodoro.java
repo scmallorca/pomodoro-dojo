@@ -9,10 +9,20 @@ public class Pomodoro {
 
     public static final int DEFAULT_POMODORO_DURATION_IN_SECONDS = 25*60;
 
-    private int durationInSeconds = DEFAULT_POMODORO_DURATION_IN_SECONDS;
-    private PomodoroStatus status = PomodoroStatus.STOPPED;
-    private int leftDurationInSeconds = DEFAULT_POMODORO_DURATION_IN_SECONDS;
+    private int durationInSeconds;
+    private Pomodoro.Status status;
+    private int leftDurationInSeconds;
     private Timer timer;
+
+    public Pomodoro() {
+        this(DEFAULT_POMODORO_DURATION_IN_SECONDS);
+    }
+
+    public Pomodoro(int durationInSeconds) {
+        this.durationInSeconds = durationInSeconds;
+        this.leftDurationInSeconds = durationInSeconds;
+        this.status = Pomodoro.Status.STOPPED;
+    }
 
     public int getDurationInSeconds() {
         return durationInSeconds;
@@ -22,12 +32,8 @@ public class Pomodoro {
         this.durationInSeconds = durationInSeconds;
     }
 
-    public PomodoroStatus getStatus() {
+    public Pomodoro.Status getStatus() {
         return status;
-    }
-
-    public void setStatus(PomodoroStatus status) {
-        this.status = status;
     }
 
     public int getLeftDurationInSeconds() {
@@ -35,7 +41,7 @@ public class Pomodoro {
     }
 
     public void start() {
-        status = PomodoroStatus.STARTED;
+        status = Pomodoro.Status.STARTED;
         this.timer = new Timer();
         this.timer.scheduleAtFixedRate(countdownTask(), 0, 1000);
     }
@@ -46,7 +52,7 @@ public class Pomodoro {
             public void run() {
                 if (leftDurationInSeconds == 1) {
                     timer.cancel();
-                    status = PomodoroStatus.STOPPED;
+                    status = Pomodoro.Status.STOPPED;
                 }
                 leftDurationInSeconds--;
             }
@@ -55,5 +61,9 @@ public class Pomodoro {
 
     public void stop() {
         throw new NotImplementedException();
+    }
+
+    public enum Status {
+        STARTED, STOPPED
     }
 }
