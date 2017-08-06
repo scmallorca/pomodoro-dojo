@@ -39,4 +39,11 @@ public class PomodoroHandlerTest {
         assertThat(this.pomodoro.getStatus(), is(Pomodoro.Status.STOPPED));
         assertThat(this.pomodoro.getLeftDurationInSeconds(), is(0));
     }
+
+    @Test
+    public void give_one_second_pomodoro_if_time_do_not_exhausted_pomodoro_does_not_end() throws InterruptedException {
+        this.pomodoro = new Pomodoro(1);
+        this.handler.start(this.pomodoro);
+        assertThat(this.pomodoro.getStatus(), is(Pomodoro.Status.STARTED));
+    }
 }

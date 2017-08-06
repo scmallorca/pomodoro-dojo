@@ -1,10 +1,5 @@
 package es.joanmiralles.kata.pomodoro.entity;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-import java.util.Timer;
-import java.util.TimerTask;
-
 public class Pomodoro {
 
     public static final int DEFAULT_POMODORO_DURATION_IN_SECONDS = 25*60;
@@ -12,7 +7,6 @@ public class Pomodoro {
     private int durationInSeconds;
     private Pomodoro.Status status;
     private int leftDurationInSeconds;
-    private Timer timer;
 
     public Pomodoro() {
         this(DEFAULT_POMODORO_DURATION_IN_SECONDS);
@@ -40,27 +34,12 @@ public class Pomodoro {
         return leftDurationInSeconds;
     }
 
-    public void start() {
-        status = Pomodoro.Status.STARTED;
-        this.timer = new Timer();
-        this.timer.scheduleAtFixedRate(countdownTask(), 0, 1000);
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
-    private TimerTask countdownTask() {
-        return new TimerTask() {
-            @Override
-            public void run() {
-                if (leftDurationInSeconds == 1) {
-                    timer.cancel();
-                    status = Pomodoro.Status.STOPPED;
-                }
-                leftDurationInSeconds--;
-            }
-        };
-    }
-
-    public void stop() {
-        throw new NotImplementedException();
+    public void setLeftDurationInSeconds(int leftDurationInSeconds) {
+        this.leftDurationInSeconds = leftDurationInSeconds;
     }
 
     public enum Status {
